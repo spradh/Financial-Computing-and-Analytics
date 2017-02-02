@@ -1,0 +1,10 @@
+#Exercise 2.2
+#a)
+Nsim=10^4
+U=runif(Nsim)
+X=0-1*log(1/U-1)
+Y=rlogis(Nsim)
+par(mfrow=c(1,2))
+hist(X, freq=F, main="Logistic from Uniform")
+hist(Y,freq=F,main="Logistic from R")
+
