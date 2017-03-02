@@ -25,6 +25,8 @@ lines(seq(-10,10,length.out=10000),dnorm(seq(-10,10,length.out=10000),
 #############################
 #Exercise 6.4 
 #b Accept reject
+par(mfrow=c(2,2))
+
 Nsim=5000
 g=function(x){dgamma(x,shape=4,rate=4/4.85)}
 f=function(x){dgamma(x,shape=4.85,rate=1)}
@@ -38,7 +40,7 @@ y=rgamma(Nsim,shape=4,rate=4/4.85)
 f(y)/g(y)
 x=y[u<f(y)/g(y)]
 
-hist(x,breaks=40,probability = TRUE)
+hist(x,breaks=40,probability = TRUE,main='Accept-Reject')
 lines(seq(0,20,length.out=1000),f(seq(0,20,length.out=1000)),col=2,lwd=2)
 
 
@@ -53,10 +55,9 @@ X=rep(rgamma(1,shape=a,rate=b),Nsim)
 for (i in 2:Nsim){
   Y=rgamma(1,shape=a,rate=b)
   rho=dgamma(Y,shape=4.85,rate=1)/dgamma(X[i-1],shape=4.85,rate=1)
-  p=runif(1)<rho
-  X[i]=X[i-1]+(Y-X[i-1])*(p)
+  X[i]=X[i-1]+(Y-X[i-1])*(runif(1)<rho)
 }
-hist(X, breaks=100,probability = TRUE)
+hist(X, breaks=100,probability = TRUE,main='Metropolis-Hastings')
 lines(seq(0,20,length.out=1000),f(seq(0,20,length.out=1000)),col=2,lwd=2)
 
 
@@ -72,7 +73,7 @@ length(x)/length(y)
 mean(x)
 var(x)
 
-acf(x)#less coorelation
+acf(x,main='Accept-Reject')#less coorelation
 
 
 #Metropolis Hastings
@@ -87,7 +88,10 @@ sum(a)/5000
 mean(X)
 var(X)
 
-acf(X)#more coorelation
+acf(X,main='Metropolis-Hastings')#more coorelation
+
+par(mfrow=c(1,1))
+plot(4700:Nsim,X[4700:Nsim],ty='l')
 
 #############################
 #############################
