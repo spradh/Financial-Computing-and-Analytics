@@ -1,0 +1,35 @@
+#Exercise 6.1 
+#Consider the Markov chain dened by X(t+1) = %X(t)+t, where
+#t  N(0; 1). Simulating X(0)  N(0; 1), plot the histogram of a sample of X(t)
+#for t  104 and % = :9. Check the potential t of the stationary distribution
+#N(0; 1=(1 􀀀 %2)).
+
+x=c(rnorm(1))
+x
+x[1]
+rho=.9
+for(t in 1:10^4){
+ x[t+1]=rho*x[t]+rnorm(1)
+} 
+
+hist(x,breaks=40,probability =TRUE)
+mlines(seq(-10,10,length.out=10000),dnorm(seq(-10,10,length.out=10000),0,sqrt(1/(1-rho^2))),ty='l')
+
+
+#Example 6.1. Recall Example 2.7, where we used an Accept{Reject algorithm
+#to simulate a beta distribution. We can just as well use a Metropolis{
+#Hastings algorithm, where the target density f is the Be(2:7; 6:3) density and the
+#candidate q is uniform over [0; 1], which means that it does not depend on the
+#previous value of the chain. A Metropolis{Hastings sample is then generated with
+#the following R code:
+
+a=2.7; b=6.3; c=2.669  #initial values
+Nsim=5000
+X=rep(runif(1),Nsim)
+for (i in 2:Nsim){
+  Y=runif(1)
+  rho=dbeta(Y,a,b)/dbeta(X[i-1],a,b)
+  X[i]=X[i-1]+(Y-X[i-1])*(runif(1)<rho)
+}
+hist(X, breaks=50)
+curve(dbeta(x,2.7,6.3))
