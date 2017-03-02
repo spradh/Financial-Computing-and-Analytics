@@ -31,5 +31,6 @@ for (i in 2:Nsim){
   rho=dbeta(Y,a,b)/dbeta(X[i-1],a,b)
   X[i]=X[i-1]+(Y-X[i-1])*(runif(1)<rho)
 }
-hist(X, breaks=50)
-curve(dbeta(x,2.7,6.3))
+hist(X, breaks=50,probability = TRUE)
+lines(seq(0,1,length.out=1000), dbeta(seq(0,1,length.out=1000), 2.7, 6.3))
+
