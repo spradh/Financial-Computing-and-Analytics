@@ -24,31 +24,8 @@ lines(seq(-10,10,length.out=10000),dnorm(seq(-10,10,length.out=10000),
 #############################
 #############################
 #Exercise 6.4 
-#b Accept reject
-par(mfrow=c(2,2))
 
-Nsim=5000
-g=function(x){dgamma(x,shape=4,rate=4/4.85)}
-f=function(x){dgamma(x,shape=4.85,rate=1)}
-
-optimize(function(x){f(x)/g(x)},interval=c(0,20),maximum=TRUE)$objective
-M=1.105143
-
-u=runif(Nsim)*M
-u
-y=rgamma(Nsim,shape=4,rate=4/4.85)
-f(y)/g(y)
-x=y[u<f(y)/g(y)]
-
-hist(x,breaks=40,probability = TRUE,main='Accept-Reject')
-lines(seq(0,20,length.out=1000),f(seq(0,20,length.out=1000)),col=2,lwd=2)
-
-
-
-#
 #c. Metropolis{Hastings algorithm to generate 5000 G(4.85, 1) random variables.
-
-
 a=4; b=4/4.85
 Nsim=5000
 X=rep(rgamma(1,shape=a,rate=b),Nsim)
