@@ -1,6 +1,6 @@
 #Question 1
 T=1/12;               % Expiration in years
-N=5;                  % Number of steps
+N=12;                  % Number of steps
 delta_t=T/N           % Time step
 r=.02;                % Risk free rate
 sigma=sqrt(.15);      % Volatility
@@ -34,5 +34,5 @@ for i=N:-1:1,
 end,
 printf("Option Value Grid : \n")
 f
-
-printf("Value of option at current date is $16.48136 .\n\n")
+current_price_of_option=f(1,1);
+fprintf("Value of option at current date is $%f.\n\n", current_price_of_option)
