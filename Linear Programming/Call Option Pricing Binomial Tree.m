@@ -17,7 +17,7 @@ f=zeros(N+1);         % Option value grid
 for j=1:N+1,
   S(j)=S0*u^(j-1)*d^(N+1-j);
 end,
-printf("Stock Prices at Maturity: \n")
+printf('Stock Prices at Maturity: \n')
 S
 
 %Initializing option value at maturity
@@ -32,7 +32,7 @@ for i=N:-1:1,
     f(j,i)=e.^(-r*delta_t)*(p*f(j,i+1)+(1-p)*f(j+1,i+1));
   end,
 end,
-printf("Option Value Grid : \n")
+printf('Option Value Grid : \n')
 f
 
-fprintf("Value of option at current date is $%f.\n\n", f(1,1))
+fprintf('Value of option at current date is $%f.\n\n', f(1,1))
